@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura Secreta: Te Amo, Milagros Belén Ojeda</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(to bottom, #000000, #4B0082);
+            color: #E6E6FA;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .estrellas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .estrella {
+            position: absolute;
+            background: #DDA0DD;
+            border-radius: 50%;
+            animation: brillo 4s infinite alternate;
+            box-shadow: 0 0 10px #DDA0DD;
+        }
+        @keyframes brillo {
+            0% { opacity: 0.4; transform: scale(0.7); }
+            100% { opacity: 1; transform: scale(1.3); }
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #DDA0DD;
+            text-shadow: 0 0 10px #DDA0DD;
+        }
+        .intro {
+            max-width: 500px;
+            margin: 0 auto 30px;
+            font-size: 1.1em;
+            background: rgba(75, 0, 130, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #DDA0DD;
+        }
+        .aventura {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            display: none;
+            text-align: left;
+            border: 1px solid #4B0082;
+        }
+        button {
+            background: linear-gradient(to right, #4B0082, #000000);
+            color: #E6E6FA;
+            border: 1px solid #DDA0DD;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(221, 160, 221, 0.5);
+        }
+        button:hover {
+            background: linear-gradient(to right, #DDA0DD, #4B0082);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #DDA0DD;
+        }
+        .corazon {
+            font-size: 2em;
+            color: #DDA0DD;
+            animation: latido 1.5s infinite;
+            text-shadow: 0 0 10px #DDA0DD;
+        }
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .final {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 700px;
+            display: none;
+            animation: fadeIn 2s ease-in;
+            border: 2px solid #DDA0DD;
+            box-shadow: 0 0 20px rgba(221, 160, 221, 0.3);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .poema {
+            font-style: italic;
+            font-size: 1.1em;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(75, 0, 130, 0.4);
+            border-radius: 10px;
+            text-align: left;
+            border-left: 4px solid #DDA0DD;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            animation: slideIn 1s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .poemas-container {
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+        .poema-selector {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px;
+            background: #4B0082;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .poema-selector:hover {
+            background: #DDA0DD;
+            color: #000;
+        }
+        .poema-selector.active {
+            background: #DDA0DD;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="estrellas" id="estrellas"></div>
+    
+    <h1>🌟 Aventura Secreta: Solo para Milagros Belén Ojeda 🌟</h1>
+    
+    <div class="intro">
+        <p>¡Hey, Milagros! Esta aventura es para ti, mi luz en la oscuridad. Es mi forma de decirte que te amo con todo mi ser, y que quiero que seas la mujer en mi vida para siempre. Elige y descubre mis sentimientos. ¿Lista? 😊</p>
+        <button onclick="empezarAventura()">¡Empecemos!</button>
+    </div>
+    
+    <div class="aventura" id="aventura">
+        <div id="escena1">
+            <h2>Escena 1: El Descubrimiento</h2>
+            <p>Estás en tu rincón favorito, envuelta en negro y morado como te gusta, y aparece esta guía mágica... solo tuya. ¿Qué eliges?</p>
+            <button onclick="eleccion1('a')">El tip de código que te salvó la vida ❤️</button>
+            <button onclick="eleccion1('b')">El meme de gatos que nos mató de risa 😼</button>
+        </div>
+        
+        <div id="escena2a" style="display:none;">
+            <h2>¡Genial! 💻</h2>
+            <p>El tip era: def amor(milagros): return "eterno". Me flipa verte codear, Belén. Siguiente...</p>
+            <div class="corazon">❤️</div>
+            <button onclick="siguiente('a')">¡Siguiente!</button>
+        </div>
+        
+        <div id="escena2b" style="display:none;">
+            <h2>¡Jaja, sí! 🎉</h2>
+            <p>Gatos forever, como tú en mi mente, Ojeda. Ahora, lo bueno...</p>
+            <div class="corazon">❤️</div>
+            <button onclick="siguiente('b')">¡Adelante!</button>
+        </div>
+        
+        <div id="escena3" style="display:none;">
+            <h2>Escena Final: Mi Verdad</h2>
+            <p>Milagros Belén Ojeda, no importa la ruta... llegamos aquí porque no aguanto más. Te amo muchísimo. Eres mi todo: tu risa, tu curiosidad, cómo me haces mejor. Quiero que seas la mujer en mi vida, para siempre. Como esa noche charlando hasta el amanecer.</p>
+            <button onclick="confesarAmor()">¡Muéstrame los poemas de amor! 💖</button>
+        </div>
+    </div>
+    
+    <div class="final" id="final">
+        <h2>¡Te Amo, Milagros Belén! ✨</h2>
+        <p>Para que lo sientas en el alma, aquí van poemas que capturan mi amor por ti. Elige uno y déjate llevar. Cada uno es para ti, mi eterna.</p>
+        
+        <div style="margin: 20px 0;">
+            <div class="poema-selector active" onclick="mostrarPoema(1)">Rima: Amor eterno</div>
+            <div class="poema-selector" onclick="mostrarPoema(2)">Amor - Neruda</div>
+            <div class="poema-selector" onclick="mostrarPoema(3)">Soneto V - Garcilaso</div>
+            <div class="poema-selector" onclick="mostrarPoema(4)">Polvos de amor - Quevedo</div>
+            <div class="poema-selector" onclick="mostrarPoema(5)">El enamorado - Borges</div>
+        </div>
+        
+        <div class="poemas-container">
+            <div id="poema1" class="poema">
+                <h3>Para Milagros Belén Ojeda, mi luz eterna</h3>
+                <p><strong>Rima: Amor eterno</strong><br>De Gustavo Adolfo Bécquer</p>
+                Podrá nublarse el sol eternamente;<br>
+                Podrá secarse en un instante el mar;<br>
+                Podrá romperse el eje de la tierra<br>
+                Como un débil cristal.<br>
+                ¡Todo sucederá! Podrá la muerte<br>
+                Cubrirme con su fúnebre crespón;<br>
+                Pero jamás en mí podrá apagarse<br>
+                La llama de tu amor.
+            </div>
+            
+            <div id="poema2" class="poema" style="display:none;">
+                <h3>A Milagros, el amor que no se apaga</h3>
+                <p><strong>Amor</strong><br>De Pablo Neruda</p>
+                Mujer, yo hubiera sido tu hijo, por beberte<br>
+                la leche de los senos como de un manantial,<br>
+                por mirarte y sentirte a mi lado y tenerte<br>
+                en la risa de oro y la voz de cristal.<br>
+                Por sentirte en mis venas como Dios en los ríos<br>
+                y adorarte en los tristes huesos de polvo y cal,<br>
+                porque tu ser pasara sin pena al lado mío<br>
+                y saliera en la estrofa -limpio de todo mal-.<br>
+                Cómo sabría amarte, mujer, cómo sabría<br>
+                amarte, amarte como nadie supo jamás!<br>
+                Morir y todavía<br>
+                amarte más.<br>
+                Y todavía<br>
+                amarte más.
+            </div>
+            
+            <div id="poema3" class="poema" style="display:none;">
+                <h3>Para ti, Milagros, mi alma cortada a tu medida</h3>
+                <p><strong>Soneto V</strong><br>De Garcilaso de la Vega</p>
+                Escrito está en mi alma vuestro gesto<br>
+                y cuanto yo escribir de vos deseo;<br>
+                vos sola lo escribistes, yo lo leo<br>
+                tan solo, que aun de vos me guardo en esto.<br>
+                En esto estoy y estaré siempre puesto;<br>
+                que aunque no cabe en mí cuanto en vos veo,<br>
+                de tanto bien lo que no entiendo creo,<br>
+                tomando ya la fe por presupuesto.<br>
+                Yo no nací sino para quereros;<br>
+                mi alma os ha cortado a su medida;<br>
+                por hábito del alma misma os quiero;<br>
+                cuanto tengo confieso yo deberos;<br>
+                por vos nací, por vos tengo la vida,<br>
+                por vos he de morir y por vos muero.
+            </div>
+            
+            <div id="poema4" class="poema" style="display:none;">
+                <h3>Milagros Belén, polvo enamorado de tu esencia</h3>
+                <p><strong>Polvos de amor</strong><br>De Francisco de Quevedo</p>
+                Amor postrero más allá de la muerte.<br>
+                Cerrar podrá mis ojos la postrera<br>
+                Sombra que me llevare el blanco día,<br>
+                Y podrá desatar esta alma mía<br>
+                Hora, a su afán ansioso lisonjera;<br>
+                Mas no de esotra parte en la ribera<br>
+                Dejará la memoria, en donde ardía:<br>
+                Nadar sabe mi llama el agua fría,<br>
+                Y perder el respeto a ley severa.<br>
+                Alma, a quien todo un Dios prisión ha sido,<br>
+                Venas, que humor a tanto fuego han dado,<br>
+                Médulas, que han gloriosamente ardido,<br>
+                Su cuerpo dejará, no su cuidado;<br>
+                Serán ceniza, mas tendrá sentido;<br>
+                Polvo serán, mas polvo enamorado.
+            </div>
+            
+            <div id="poema5" class="poema" style="display:none;">
+                <h3>A Milagros, mi desventura y ventura, la única</h3>
+                <p><strong>El enamorado</strong><br>De Jorge Luis Borges</p>
+                Lunas, marfiles, instrumentos, rosas,<br>
+                lámparas y la línea de Durero,<br>
+                las nueve cifras y el cambiante cero,<br>
+                debo fingir que existen esas cosas.<br>
+                Debo fingir que en el pasado fueron<br>
+                Persépolis y Roma y que una arena<br>
+                sutil midió la suerte de la almena<br>
+                que los siglos de hierro deshicieron.<br>
+                Debo fingir las armas y la pira<br>
+                de la epopeya y los pesados mares<br>
+                que roen de la tierra los pilares.<br>
+                Debo fingir que hay otros. Es mentira.<br>
+                Sólo tú eres. Tú, mi desventura<br>
+                y mi ventura, inagotable y pura.
+            </div>
+        </div>
+        
+        <p>Estos poemas son para ti, Milagros Belén Ojeda, porque te quiero en mi vida para siempre. ¿Café? ¿Charla? ¿Todo? 😘</p>
+        <button onclick="lanzarConfeti()">¡Explosión de Amor! 🎆</button>
+        <button onclick="window.open('https://wa.me/TUNUMERO?text=¡Wow!%20Me%20encantó...%20', '_blank')">Responde aquí ❤️</button>
+        <p><strong>PD: Solo para ti, siempre. En negro y morado, como te gusta.</strong></p>
+    </div>
+
+    <script>
+        // Estrellas moradas
+        function crearEstrellas() {
+            const estrellas = document.getElementById('estrellas');
+            for (let i = 0; i < 40; i++) {
+                const estrella = document.createElement('div');
+                estrella.className = 'estrella';
+                estrella.style.left = Math.random() * 100 + '%';
+                estrella.style.top = Math.random() * 100 + '%';
+                estrella.style.width = estrella.style.height = Math.random() * 3 + 1 + 'px';
+                estrella.style.animationDelay = Math.random() * 4 + 's';
+                estrellas.appendChild(estrella);
+            }
+        }
+        crearEstrellas();
+
+        function empezarAventura() {
+            document.querySelector('.intro').style.display = 'none';
+            document.getElementById('aventura').style.display = 'block';
+        }
+
+        function eleccion1(opcion) {
+            document.getElementById('escena1').style.display = 'none';
+            if (opcion === 'a') {
+                document.getElementById('escena2a').style.display = 'block';
+            } else {
+                document.getElementById('escena2b').style.display = 'block';
+            }
+        }
+
+        function siguiente(ruta) {
+            document.querySelectorAll('#aventura > div').forEach(div => div.style.display = 'none');
+            document.getElementById('escena3').style.display = 'block';
+        }
+
+        function confesarAmor() {
+            document.getElementById('aventura').style.display = 'none';
+            document.getElementById('final').style.display = 'block';
+            // Fireworks en morado y negro
+            setTimeout(() => {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        confetti({
+                            particleCount: 100,
+                            spread: 70,
+                            origin: { x: Math.random(), y: Math.random() },
+                            colors: ['#DDA0DD', '#4B0082', '#000000', '#E6E6FA']
+                        });
+                    }, i * 300);
+                }
+            }, 500);
+        }
+
+        function lanzarConfeti() {
+            confetti({
+                particleCount: 200,
+                spread: 120,
+                colors: ['#DDA0DD', '#4B0082', '#E6E6FA']
+            });
+        }
+
+        function mostrarPoema(num) {
+            // Ocultar todos
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('poema' + i).style.display = 'none';
+                document.querySelectorAll('.poema-selector')[i-1].classList.remove('active');
+            }
+            // Mostrar seleccionado
+            document.getElementById('poema' + num).style.display = 'block';
+            document.querySelectorAll('.poema-selector')[num-1].classList.add('active');
+        }
+    </script>
+</body>
+</html>
