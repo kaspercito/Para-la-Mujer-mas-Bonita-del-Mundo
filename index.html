@@ -328,12 +328,12 @@
         
         <div id="quiz" class="quiz-section">
             <h2>¡Mini-Quiz: ¿Cuánto Nos Conocemos? ❓</h2>
-            <p class="quiz-question">Pregunta 1: ¿Cuál es mi color favorito que compartimos?</p>
+            <p class="quiz-question">Pregunta 1: ¿Cuál es mi color favorito?</p>
             <button onclick="quizAnswer(1, 'a')">Azul Brillante 💙</button>
             <button onclick="quizAnswer(1, 'b')">Rojo Pasión ❤️</button>
-            <p class="quiz-question" style="display:none;" id="q2">¡Correcto! Pregunta 2: ¿Qué animal nos representa?</p>
-            <button onclick="quizAnswer(2, 'a')" style="display:none;" id="opt2a">Ratoncitos 🐁</button>
-            <button onclick="quizAnswer(2, 'b')" style="display:none;" id="opt2b">Perro Leal 🐶</button>
+            <p class="quiz-question" style="display:none;" id="q2">¡Correcto! Pregunta 2: ¿Qué animal te representa?</p>
+            <button onclick="quizAnswer(2, 'a')" style="display:none;" id="opt2a">Ratoncito 🐁</button>
+            <button onclick="quizAnswer(2, 'b')" style="display:none;" id="opt2b">Dinosaurio 🦕</button>
             <button onclick="volverEscena1()">Volver a la Escena 1</button>
         </div>
         
@@ -348,7 +348,7 @@
     
     <div class="final" id="final">
         <h2>¡Te Amo, Milagros Belen! ✨</h2>
-        <p>Para que lo sientas en el alma, aquí va un jardín de poemas dedicados a ti. Elige, lee, y déjate envolver. Cada verso es un pedazo de mi corazón para ti, mi eterna en negro y morado.</p>
+        <p>Para que lo sientas en el alma, aquí va un jardín de poemas dedicados a ti. Elige y lee. Cada verso es un pedazo de mi corazón para ti.</p>
         
         <div style="margin: 20px 0;">
             <div class="poema-selector active" onclick="mostrarPoema(1)">Rima: Amor Eterno</div>
@@ -515,12 +515,12 @@
 
         function quizAnswer(q, ans) {
             if (q === 1 && ans === 'a') {
-                alert('¡Correcto! Negro y morado, como nuestro amor. 💜');
+                alert('¡Correcto! Azul Brillante. 💙');
                 document.getElementById('q2').style.display = 'block';
                 document.getElementById('opt2a').style.display = 'inline-block';
                 document.getElementById('opt2b').style.display = 'inline-block';
             } else if (q === 2 && ans === 'a') {
-                alert('¡Sí! Gato travieso, como tú en mi corazón. 😼 Ahora, ¡vuelve y elige!');
+                alert('¡Sí! Ratoncita. 🐁 Ahora, ¡vuelve y elige!');
                 document.getElementById('quiz').style.display = 'none';
                 document.getElementById('escena1').style.display = 'block';
             } else {
